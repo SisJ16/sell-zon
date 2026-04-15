@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'core/bindings/app_binding.dart';
+import 'core/constants/app_routes.dart';
+import 'core/routes/app_pages.dart';
 import 'core/theme/app_theme.dart';
-import 'features/home/bindings/home_binding.dart';
-import 'features/home/views/home_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -16,8 +20,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      initialBinding: HomeBinding(),
-      home: const HomePage(),
+      initialBinding: AppBinding(),
+      getPages: AppPages.pages,
+      initialRoute: AppRoutes.login,
     );
   }
 }
